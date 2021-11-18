@@ -2,11 +2,12 @@ import React, {FC} from 'react';
 import Item from "./Item";
 import {Droppable} from "react-beautiful-dnd";
 import Placeholder from "./Placeholder";
+import {CalcPartial} from "../features/calculator/model/CalcPartial";
 
 interface ColumnProps {
     col: {
         id: any
-        list: string[]
+        list: CalcPartial[]
     }
 }
 
@@ -27,7 +28,7 @@ const Column: FC<ColumnProps> = ({col: {list, id}}) => {
                         ref={provided.innerRef}
                     >
                         {list.map((text, index) => (
-                            <Item key={text} text={text} index={index}/>
+                            <Item key={text.sort} text={text.elementCalc} index={index}/>
                         ))}
                         {provided.placeholder && <Placeholder/>}
 
