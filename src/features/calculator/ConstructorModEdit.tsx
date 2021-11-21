@@ -2,11 +2,8 @@ import React from 'react';
 import {useAppDispatch, useAppSelector} from "../../app/hooks";
 import {selectEditMode, toggleEditMode} from "./calculatorSlice";
 
-const Calculator = () => {
+const ConstructorModEdit = () => {
     const dispatch = useAppDispatch();
-    const isEditMode = useAppSelector(selectEditMode);
-
-
     return (
         <div>
             <button
@@ -14,10 +11,8 @@ const Calculator = () => {
             >
                 toggle
             </button>
-
-            <p>{isEditMode ? "edit mode" : "not edit mode"}</p>
         </div>
     );
 };
 
-export default Calculator;
+export default ConstructorModEdit;

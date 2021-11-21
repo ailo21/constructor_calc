@@ -1,5 +1,5 @@
 export interface CalcPartial {
-    sort: number | undefined,
+    sort: number,
     elementCalc: CalcPartialEnum
 }
 

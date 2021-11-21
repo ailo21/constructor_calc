@@ -13,7 +13,7 @@ interface ColumnProps {
 
 const Column: FC<ColumnProps> = ({col: {list, id}}) => {
     return (
-        <Droppable droppableId={id}>
+        <Droppable droppableId={id} >
             {provided => (
                 <div
                     className={"column column_"+id}
@@ -27,8 +27,8 @@ const Column: FC<ColumnProps> = ({col: {list, id}}) => {
                         {...provided.droppableProps}
                         ref={provided.innerRef}
                     >
-                        {list.map((text, index) => (
-                            <Item key={text.sort} text={text.elementCalc} index={index}/>
+                        {list.map((partial, index) => (
+                            <Item partial={partial}  key={partial.sort} text={partial.elementCalc} index={index}/>
                         ))}
                         {provided.placeholder && <Placeholder/>}
 

@@ -4,10 +4,12 @@ import {RootState} from "../../app/store";
 
 export interface CalcState {
     isEditMode: boolean,
-    partials: PartCalc
+    structure: PartCalc
 }
-export interface  PartCalc{
+
+export interface PartCalc {
     [index: string]: any,
+
     constructor: {
         id: 'constructor',
         list: CalcPartial[]
@@ -19,8 +21,8 @@ export interface  PartCalc{
 }
 
 const initialState: CalcState = {
-    isEditMode: false,
-    partials: {
+    isEditMode: true,
+    structure: {
         constructor: {
             id: 'constructor',
             list: [
@@ -32,9 +34,7 @@ const initialState: CalcState = {
         },
         calculator: {
             id: 'calculator',
-            list: [
-
-            ]
+            list: []
         },
     }
 }
@@ -46,16 +46,29 @@ export const calculatorSlice = createSlice({
         toggleEditMode: (state) => {
             state.isEditMode = !state.isEditMode
         },
-        changePartials: (state, action:PayloadAction<PartCalc>) => {
+        changePartials: (state, action: PayloadAction<PartCalc>) => {
+            state.structure = action.payload;
+        },
+        removePartial: (state, action: PayloadAction<CalcPartial>) => {
+            debugger;
+            if (state.structure.calculator.list.some(o => o.sort === action.payload.sort)) {
+                //уберем элемент из калькулятора
+                const newCalculatorList = state.structure.calculator.list.map(f => f.sort !== action.payload.sort);
+                state.structure.calculator.list = Object.assign([], newCalculatorList);
 
-            state.partials=action.payload;
+                //вставляем этот элемент в конструктор
+                const newConstructorList=[...state.structure.constructor.list, action.payload];
+                state.structure.constructor.list = Object.assign([],newConstructorList);
+            }
+
 
         }
+
     }
 })
-export const {toggleEditMode, changePartials} = calculatorSlice.actions;
+export const {toggleEditMode, changePartials, removePartial} = calculatorSlice.actions;
 
 export const selectEditMode = (state: RootState) => state.calculator.isEditMode;
-export const selectPartials = (state: RootState) => state.calculator.partials;
+export const selectPartials = (state: RootState) => state.calculator.structure;
 
 export default calculatorSlice.reducer;

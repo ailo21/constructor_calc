@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import Calculator from "./features/calculator/Calculator";
+import ConstructorModEdit from "./features/calculator/ConstructorModEdit";
 import ColumnWrap from "./components/ColumnWrap";
 
 function App() {
@@ -8,7 +8,7 @@ function App() {
       <div className={"wrap"}>
           <div className={"container"}>
               <ColumnWrap/>
-              <Calculator />
+
           </div>
       </div>
 

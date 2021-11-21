@@ -3,11 +3,13 @@ import Column from "./Column";
 import {DragDropContext, DropResult} from 'react-beautiful-dnd';
 import {CalcPartial} from "../features/calculator/model/CalcPartial";
 import {useAppDispatch, useAppSelector} from "../app/hooks";
-import {changePartials, PartCalc, selectPartials} from "../features/calculator/calculatorSlice";
+import {changePartials, PartCalc, selectEditMode, selectPartials} from "../features/calculator/calculatorSlice";
+import ConstructorModEdit from "../features/calculator/ConstructorModEdit";
 
 const ColumnWrap = () => {
     const dispatch = useAppDispatch();
     const columns = useAppSelector(selectPartials);
+    const isEditMode = useAppSelector(selectEditMode);
 
     const onDragEnd = ({source, destination}: DropResult) => {
 
@@ -44,7 +46,7 @@ if(columns!=null){
             }
 
             // Update the state
-            debugger;
+            // debugger;
             // setColumns(state => ({...state, [newCol.id]: newCol}))
             dispatch(changePartials({
                 [newList.id]: newList,
@@ -78,7 +80,7 @@ if(columns!=null){
                 list: newEndList
             }
 
-            debugger;
+            // debugger;
             // Update the state
             dispatch(changePartials({
                 [newStartCol.id]: newStartCol,
@@ -91,22 +93,27 @@ if(columns!=null){
     }
 
     return (
-        <DragDropContext onDragEnd={onDragEnd}>
-            <div
-                style={{
-                    display: 'grid',
-                    gridTemplateColumns: '1fr 1fr',
-                    margin: '24px auto',
-                    gap: '15px'
-                }}
-            >
+        <div className={isEditMode?"mode mode__constructor":"mode mode__calculator"}>
+            <ConstructorModEdit />
+            <DragDropContext onDragEnd={onDragEnd}>
+                <div
 
-                <Column col={columns["constructor"]} key={columns["constructor"].id}/>
-                <Column col={columns["calculator"]} key={columns["calculator"].id}/>
+                    style={{
+                        display: 'grid',
+                        gridTemplateColumns: '1fr 1fr',
+                        margin: '24px auto',
+                        gap: '15px'
+                    }}
+                >
 
-            </div>
+                    <Column col={columns["constructor"]} key={columns["constructor"].id}/>
+                    <Column col={columns["calculator"]} key={columns["calculator"].id}/>
 
-        </DragDropContext>
+                </div>
+
+            </DragDropContext>
+        </div>
+
     )
 };
 
