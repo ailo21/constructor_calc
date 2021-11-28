@@ -3,7 +3,7 @@ import s from './Calc.module.css';
 
 const CalcEqual = () => {
     return (
-        <div  className={"calc_partial"}>
+        <div  className={""}>
             <button className={s.operation}>
                 =
             </button>

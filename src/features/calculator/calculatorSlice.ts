@@ -9,19 +9,10 @@ export interface CalcState {
 
 export interface PartCalc {
     [index: string]: any,
-    arialDisplay: {
-        id: 'arialDisplay',
-        item?: CalcPartial
+    constructor:{
+        id:'constructor',
+        list: CalcPartial[]
     },
-    arialNumbers: {
-        id: 'arialNumbers',
-        item?: CalcPartial
-    },
-    ariaEqual: {
-        id: 'ariaEqual',
-        item?: CalcPartial
-    },
-
     calculator: {
         id: 'calculator',
         list: CalcPartial[]
@@ -29,18 +20,14 @@ export interface PartCalc {
 }
 
 const initialState: CalcState = {
-    isEditMode: false,
+    isEditMode: true,
     structure: {
-        arialDisplay: {
-            id: 'arialDisplay',
-            item: {sort: 1, elementCalc: CalcPartialEnum.CalcDisplay}
-        },
-        arialNumbers: {
-            id: 'arialNumbers',
-            item: {sort: 2, elementCalc: CalcPartialEnum.CalcNumbers}
-        },
-        ariaEqual: {
-            id: 'ariaEqual',
+        constructor:{
+            id:'constructor',
+            list:[
+                {sort: 1, elementCalc: CalcPartialEnum.CalcDisplay},
+                {sort: 2, elementCalc: CalcPartialEnum.CalcNumbers}
+            ]
         },
         calculator: {
             id: 'calculator',
@@ -59,20 +46,8 @@ export const calculatorSlice = createSlice({
             state.isEditMode = !state.isEditMode
         },
         changePartials: (state, action: PayloadAction<PartCalc>) => {
-
-            if(action.payload['arialDisplay']!=undefined){
-                state.structure.arialDisplay=action.payload['arialDisplay'];
-            }
-            if(action.payload['arialNumbers']!=undefined){
-                state.structure.arialNumbers=action.payload['arialNumbers'];
-            }
-            if(action.payload['ariaEqual']!=undefined){
-                state.structure.ariaEqual=action.payload['ariaEqual'];
-            }
-            if(action.payload['calculator']!=undefined){
-                state.structure.calculator=action.payload['calculator'];
-            }
             debugger;
+            state.structure=action.payload;
         },
 
     }

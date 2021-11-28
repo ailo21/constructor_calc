@@ -12,8 +12,8 @@ interface ColumnProps {
     }
 }
 
-const Column: FC<ColumnProps> = ({col: {list,item, id}}) => {
-
+const Column: FC<ColumnProps> = ({col: {list, id}}) => {
+// debugger;
     return (
         <Droppable droppableId={id}>
             {provided => (
@@ -31,12 +31,9 @@ const Column: FC<ColumnProps> = ({col: {list,item, id}}) => {
                         ref={provided.innerRef}
                     >
                         {list?.map((partial, index) => (
-                            <Item partial={partial} key={partial.sort} text={partial.elementCalc} index={partial.sort}/>
+                            <Item partial={partial} key={partial.sort} text={partial.elementCalc} index={index}/>
                         ))}
-                        {
-                            item!=undefined &&
-                            <Item partial={item} key={item.sort} text={item.elementCalc} index={item.sort}/>
-                        }
+
 
                         {id == 'calculator' && <Placeholder/>}
 

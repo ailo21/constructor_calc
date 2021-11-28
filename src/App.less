@@ -22,6 +22,31 @@ body {
   height: 444px;
 }
 
+.mode__calculator{
+  .column_constructor{
+    position: relative;
+    .calc_partial{
+      box-shadow: none;
+    }
+    &:before{
+      content: '';
+      position: absolute;
+      background-color: #fff;
+      top:0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      z-index: 2;
+
+    }
+
+  }
+  .column_calculator{
+    .placeholder{
+      display: none;
+    }
+  }
+}
 .column_constructor {
   .placeholder {
     display: none;
@@ -70,7 +95,7 @@ body {
 }
 .mode__constructor .calc_partial{
   position: relative;
-  opacity: .5;
+  //opacity: .5;
 }
 .mode__constructor .calc_partial:before{
   content: '';

@@ -5,7 +5,7 @@ import s from './Calc.module.css'
 const CalcNumbersList = () => {
 
     return (
-        <div className={"calc_partial"}>
+        <div className={""}>
             <div className={s.row}>
                 <CalcNumber num={7}/>
                 <CalcNumber num={8}/>

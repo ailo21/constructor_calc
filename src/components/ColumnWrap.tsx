@@ -10,14 +10,9 @@ const ColumnWrap = () => {
     const dispatch = useAppDispatch();
     const columns = useAppSelector(selectPartials);
     const isEditMode = useAppSelector(selectEditMode);
-    // useEffect(()=>{
-    //     debugger;
-    //     },
-    //     [columns]
-    // )
+
 
     const onDragEnd = ({source, destination}: DropResult) => {
-
         // Make sure we have a valid destination
         if (destination === undefined || destination === null) return null
 
@@ -34,30 +29,38 @@ const ColumnWrap = () => {
         const end = Object.assign([], columns[destination.droppableId]);
         if(end.id!='calculator')return  null;
 
+
+        const newStartList = start.list.filter(
+            (_: any, idx: number) => idx !== source.index
+        )
+
         // Create a new start column
         const newStartCol = {
             id: start.id,
+            list: newStartList
         }
 
         // Make a new end list array
-        const newEndList = Object.assign([], end.list);
-        newEndList.push(start.item)
+        const newEndList =Object.assign([], end.list);
+
+
+
+        // Insert the item into the end list
+        newEndList.splice(destination.index, 0, start.list[source.index])
 
         // Create a new end column
         const newEndCol = {
             id: end.id,
             list: newEndList
         }
-        //
-        //     // debugger;
+
+         // debugger;
         // Update the state
         dispatch(changePartials({
             [newStartCol.id]: newStartCol,
             [newEndCol.id]: newEndCol
         } as PartCalc))
-        //
-        //     return null
-        // }
+
 
     }
 
@@ -74,9 +77,7 @@ const ColumnWrap = () => {
                     }}
                 >
                     <div>
-                        <Column col={columns["arialDisplay"]} key={columns["arialDisplay"].id}/>
-                        <Column col={columns["arialNumbers"]} key={columns["arialNumbers"].id}/>
-                        <Column col={columns["ariaEqual"]} key={columns["ariaEqual"].id}/>
+                        <Column col={columns["constructor"]} key={columns["constructor"].id}/>
                     </div>
                     <div>
                         <Column col={columns["calculator"]} key={columns["calculator"].id}/>
