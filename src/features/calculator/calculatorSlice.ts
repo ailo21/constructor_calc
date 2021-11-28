@@ -9,11 +9,19 @@ export interface CalcState {
 
 export interface PartCalc {
     [index: string]: any,
-
-    constructor: {
-        id: 'constructor',
-        list: CalcPartial[]
+    arialDisplay: {
+        id: 'arialDisplay',
+        item?: CalcPartial
     },
+    arialNumbers: {
+        id: 'arialNumbers',
+        item?: CalcPartial
+    },
+    ariaEqual: {
+        id: 'ariaEqual',
+        item?: CalcPartial
+    },
+
     calculator: {
         id: 'calculator',
         list: CalcPartial[]
@@ -21,21 +29,25 @@ export interface PartCalc {
 }
 
 const initialState: CalcState = {
-    isEditMode: true,
+    isEditMode: false,
     structure: {
-        constructor: {
-            id: 'constructor',
-            list: [
-                {sort: 1, elementCalc: CalcPartialEnum.CalcDisplay},
-                {sort: 2, elementCalc: CalcPartialEnum.CalcNumbers},
-                {sort: 3, elementCalc: CalcPartialEnum.CalcEqual}
-
-            ]
+        arialDisplay: {
+            id: 'arialDisplay',
+            item: {sort: 1, elementCalc: CalcPartialEnum.CalcDisplay}
+        },
+        arialNumbers: {
+            id: 'arialNumbers',
+            item: {sort: 2, elementCalc: CalcPartialEnum.CalcNumbers}
+        },
+        ariaEqual: {
+            id: 'ariaEqual',
         },
         calculator: {
             id: 'calculator',
-            list: []
+            list: [{sort: 3, elementCalc: CalcPartialEnum.CalcEqual}]
         },
+
+
     }
 }
 
@@ -47,26 +59,25 @@ export const calculatorSlice = createSlice({
             state.isEditMode = !state.isEditMode
         },
         changePartials: (state, action: PayloadAction<PartCalc>) => {
-            state.structure = action.payload;
-        },
-        removePartial: (state, action: PayloadAction<CalcPartial>) => {
-            debugger;
-            if (state.structure.calculator.list.some(o => o.sort === action.payload.sort)) {
-                //уберем элемент из калькулятора
-                const newCalculatorList = state.structure.calculator.list.map(f => f.sort !== action.payload.sort);
-                state.structure.calculator.list = Object.assign([], newCalculatorList);
 
-                //вставляем этот элемент в конструктор
-                const newConstructorList=[...state.structure.constructor.list, action.payload];
-                state.structure.constructor.list = Object.assign([],newConstructorList);
+            if(action.payload['arialDisplay']!=undefined){
+                state.structure.arialDisplay=action.payload['arialDisplay'];
             }
-
-
-        }
+            if(action.payload['arialNumbers']!=undefined){
+                state.structure.arialNumbers=action.payload['arialNumbers'];
+            }
+            if(action.payload['ariaEqual']!=undefined){
+                state.structure.ariaEqual=action.payload['ariaEqual'];
+            }
+            if(action.payload['calculator']!=undefined){
+                state.structure.calculator=action.payload['calculator'];
+            }
+            debugger;
+        },
 
     }
 })
-export const {toggleEditMode, changePartials, removePartial} = calculatorSlice.actions;
+export const {toggleEditMode, changePartials} = calculatorSlice.actions;
 
 export const selectEditMode = (state: RootState) => state.calculator.isEditMode;
 export const selectPartials = (state: RootState) => state.calculator.structure;

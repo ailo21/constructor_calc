@@ -2,21 +2,24 @@ import React, {FC} from 'react';
 import Item from "./Item";
 import {Droppable} from "react-beautiful-dnd";
 import Placeholder from "./Placeholder";
-import {CalcPartial} from "../features/calculator/model/CalcPartial";
+import {CalcPartial, CalcPartialEnum} from "../features/calculator/model/CalcPartial";
 
 interface ColumnProps {
     col: {
         id: any
-        list: CalcPartial[]
+        list?: CalcPartial[]
+        item?: CalcPartial
     }
 }
 
-const Column: FC<ColumnProps> = ({col: {list, id}}) => {
+const Column: FC<ColumnProps> = ({col: {list,item, id}}) => {
+
     return (
-        <Droppable droppableId={id} >
+        <Droppable droppableId={id}>
             {provided => (
+
                 <div
-                    className={"column column_"+id}
+                    className={"column column_" + id}
                 >
                     <div
                         style={{
@@ -27,10 +30,15 @@ const Column: FC<ColumnProps> = ({col: {list, id}}) => {
                         {...provided.droppableProps}
                         ref={provided.innerRef}
                     >
-                        {list.map((partial, index) => (
-                            <Item partial={partial}  key={partial.sort} text={partial.elementCalc} index={index}/>
+                        {list?.map((partial, index) => (
+                            <Item partial={partial} key={partial.sort} text={partial.elementCalc} index={partial.sort}/>
                         ))}
-                        {provided.placeholder && <Placeholder/>}
+                        {
+                            item!=undefined &&
+                            <Item partial={item} key={item.sort} text={item.elementCalc} index={item.sort}/>
+                        }
+
+                        {id == 'calculator' && <Placeholder/>}
 
                     </div>
                 </div>

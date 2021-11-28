@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import ConstructorModEdit from "./features/calculator/ConstructorModEdit";
+import ConstructorModEdit from "./components/switcher/ConstructorModEdit";
 import ColumnWrap from "./components/ColumnWrap";
 
 function App() {
