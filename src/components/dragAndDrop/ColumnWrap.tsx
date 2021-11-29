@@ -1,11 +1,11 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import Column from "./Column";
 import {DragDropContext, DropResult} from 'react-beautiful-dnd';
-import {useAppDispatch, useAppSelector} from "../app/hooks";
-import {changePartials, PartCalc, selectEditMode, selectPartials} from "../features/calculator/calculatorSlice";
-import ConstructorModEdit from "./switcher/ConstructorModEdit";
-import OpacityPlaceholder from "./calculator/OpacityPlaceholder";
-import {CalcPartial} from "../features/calculator/model/CalcPartial";
+import {useAppDispatch, useAppSelector} from "../../app/hooks";
+import {changePartials, PartCalc, selectEditMode, selectPartials} from "../../features/calculator/calculatorSlice";
+import ConstructorModEdit from "../switcher/ConstructorModEdit";
+import OpacityPlaceholder from "../calculator/OpacityPlaceholder";
+import {CalcPartial} from "../../features/calculator/model/CalcPartial";
 
 const ColumnWrap = () => {
     const dispatch = useAppDispatch();

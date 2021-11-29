@@ -1,18 +1,16 @@
 import React, {FC} from 'react';
 import {Draggable} from "react-beautiful-dnd";
-import {CalcPartial, CalcPartialEnum} from "../features/calculator/model/CalcPartial";
-import {useAppDispatch, useAppSelector} from "../app/hooks";
+import {CalcPartial, CalcPartialEnum} from "../../features/calculator/model/CalcPartial";
+import {useAppDispatch, useAppSelector} from "../../app/hooks";
 import {
-    changePartials,
     deleteFromCalculator,
-    PartCalc,
     selectEditMode,
     selectPartials
-} from "../features/calculator/calculatorSlice";
-import CalcNumbersList from "./calculator/CalcNumbersList";
-import CalcEqual from "./calculator/CalcEqual";
-import CalcDisplay from "./calculator/CalcDisplay";
-import CalcOperationList from "./calculator/CalcOperationList";
+} from "../../features/calculator/calculatorSlice";
+import CalcNumbersList from "../calculator/CalcNumbersList";
+import CalcEqual from "../calculator/CalcEqual";
+import CalcDisplay from "../calculator/CalcDisplay";
+import CalcOperationList from "../calculator/CalcOperationList";
 
 interface ItemProps {
     text: string,

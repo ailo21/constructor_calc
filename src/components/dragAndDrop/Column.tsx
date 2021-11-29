@@ -2,7 +2,7 @@ import React, {FC} from 'react';
 import Item from "./Item";
 import {Droppable} from "react-beautiful-dnd";
 import Placeholder from "./Placeholder";
-import {CalcPartial, CalcPartialEnum} from "../features/calculator/model/CalcPartial";
+import {CalcPartial} from "../../features/calculator/model/CalcPartial";
 
 interface ColumnProps {
     col: {

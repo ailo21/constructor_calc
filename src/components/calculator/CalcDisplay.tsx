@@ -1,5 +1,5 @@
-import React, {useEffect} from 'react';
-import s from './Calc.module.css';
+import React from 'react';
+
 import {useAppSelector} from "../../app/hooks";
 import {
     selectDisplay
@@ -10,7 +10,7 @@ const CalcDisplay = () => {
 
     return (
         <div className={"calc_partial calc_partial_display"}>
-            <input readOnly={true} value={displayValue} className={s.display} type={"text"} placeholder={'0'}/>
+            <input readOnly={true} value={displayValue} className={'display'} type={"text"} placeholder={'0'}/>
         </div>
     );
 };

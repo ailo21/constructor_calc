@@ -1,5 +1,4 @@
 import React from 'react';
-import s from './Calc.module.css';
 import {useAppDispatch} from "../../app/hooks";
 import {computedResult} from "../../features/calculator/calculatorSlice";
 
@@ -10,7 +9,7 @@ const CalcEqual = () => {
     }
     return (
         <div  className={"calc_partial"}>
-            <button className={s.operation} onClick={()=>clickHandlerResult()}>
+            <button className={'operation'} onClick={()=>clickHandlerResult()}>
                 =
             </button>
         </div>

@@ -1,7 +1,4 @@
 import React, {FC} from 'react';
-import s from './Calc.module.css'
-import {toggleEditMode} from "../../features/calculator/calculatorSlice";
-import {useAppDispatch} from "../../app/hooks";
 
 interface Props {
     num: number,
@@ -9,10 +6,8 @@ interface Props {
 }
 
 const CalcNumber: FC<Props> = ({num,onClick}) => {
-
-
     return (
-        <button className={s.num} onClick={() => {
+        <button className={'num'} onClick={() => {
             onClick(num)
         }}>
             {num}

@@ -1,5 +1,5 @@
 import React from 'react';
-import { ReactComponent as PlaceholderSvg } from '../asset/icon/icon_image.svg';
+import { ReactComponent as PlaceholderSvg } from '../../asset/icon/icon_image.svg';
 
 const Placeholder = () => {
     return (

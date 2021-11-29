@@ -40,6 +40,7 @@ button.mode {
   width: 121px;
   z-index: 2;
 }
+button.mode.active,
 button.mode:hover {
   cursor: pointer;
 }

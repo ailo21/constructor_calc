@@ -52,10 +52,7 @@ const initialState: CalcState = {
         compute: undefined,
         isComputedResult: false
     },
-
-
     structure: {
-
         arialDisplay: {
             id: 'arialDisplay',
             list: [{sort: 1, elementCalc: CalcPartialEnum.CalcDisplay},]
@@ -165,8 +162,6 @@ export const calculatorSlice = createSlice({
             state.displayProp.compute = result;
             state.displayProp.isComputedResult = true
         }
-
-
     }
 })
 export const {
@@ -190,7 +185,7 @@ export const selectDisplayOperation = (state: RootState) => state.calculator.dis
 export const selectIsComputedResult = (state: RootState) => state.calculator.displayProp.isComputedResult;
 
 export const selectDisplay = (state: RootState) => {
-    let value = '';
+    let value: string;
     if (state.calculator.displayProp.compute === undefined) {
         value = String(state.calculator.displayProp.operand1 ?? '');
         value += String(state.calculator.displayProp.operation ?? '');
