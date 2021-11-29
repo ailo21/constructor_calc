@@ -10,7 +10,7 @@ const CalcDisplay = () => {
 
     return (
         <div className={"calc_partial calc_partial_display"}>
-            <input readOnly={true} value={displayValue} className={s.display} type={"text"}/>
+            <input readOnly={true} value={displayValue} className={s.display} type={"text"} placeholder={'0'}/>
         </div>
     );
 };

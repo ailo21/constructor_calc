@@ -3,25 +3,30 @@ import CalcNumber from "./CalcNumber";
 import s from './Calc.module.css'
 import {useAppDispatch, useAppSelector} from "../../app/hooks";
 import {
-    addOperand1, addOperand2,
-    selectDisplayOperand1, selectDisplayOperand2, selectDisplayOperation, toggleEditMode
+    addOperand1, addOperand2, computedResult, displayClear,
+    selectDisplayOperand1, selectDisplayOperand2, selectDisplayOperation, selectIsComputedResult, toggleEditMode
 } from "../../features/calculator/calculatorSlice";
 
 const CalcNumbersList = () => {
     const dispatch = useAppDispatch();
-    // const operand1 = useAppSelector(selectDisplayOperand1);
-    // const operand2 = useAppSelector(selectDisplayOperand2);
     const operation = useAppSelector(selectDisplayOperation);
+    const computedResult = useAppSelector(selectIsComputedResult);
 
     const clickHandlerNum = (num: number) => {
-        debugger;
-        if(operation===undefined){
+        if(computedResult){
+            dispatch(displayClear())
             dispatch(addOperand1(num))
         }
         else{
-            debugger;
-            dispatch(addOperand2(num))
+            if(operation===undefined){
+                dispatch(addOperand1(num))
+            }
+            else{
+                dispatch(addOperand2(num))
+            }
         }
+
+
     }
 
     return (

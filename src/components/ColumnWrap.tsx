@@ -12,7 +12,6 @@ const ColumnWrap = () => {
     const columns = useAppSelector(selectPartials);
     const isEditMode = useAppSelector(selectEditMode);
 
-
     const onDragEnd = ({source, destination}: DropResult) => {
         // Make sure we have a valid destination
         if (destination === undefined || destination === null) return null
@@ -23,6 +22,7 @@ const ColumnWrap = () => {
             destination.index === source.index
         )
             return null
+
         if (columns != null) {
 
         }
@@ -30,41 +30,47 @@ const ColumnWrap = () => {
         const end = Object.assign([], columns[destination.droppableId]);
         if (end.id != 'calculator') return null;
 
+        if (start.id === end.id && end.id=='calculator'){
 
-        const newStartList = start.list.filter(
-            (_: any, idx: number) => idx !== source.index
-        )
+        }
+        else{
+            const newStartList = start.list.filter(
+                (_: any, idx: number) => idx !== source.index
+            )
 
-        // Create a new start column
-        const newStartCol = {
-            id: start.id,
-            list: newStartList
+            // Create a new start column
+            const newStartCol = {
+                id: start.id,
+                list: newStartList
+            }
+
+            // Make a new end list array
+            const newEndList = Object.assign([], end.list);
+
+            // Insert the item into the end list
+            newEndList.splice(destination.index, 0, start.list[source.index])
+
+            //обеспечим появление дисплея строго в первой позиции
+            if (newEndList.some((s: CalcPartial) => (s.elementCalc == 'CalcDisplay'))) {
+                const displayIndex = newEndList.findIndex((f: CalcPartial) => f.elementCalc == 'CalcDisplay');
+                let temp = newEndList.splice(displayIndex, 1)
+                newEndList.splice(0, 0, temp[0]);
+            }
+
+            // Create a new end column
+            const newEndCol = {
+                id: end.id,
+                list: newEndList
+            }
+
+            // Update the state
+            dispatch(changePartials({
+                [newStartCol.id]: newStartCol,
+                [newEndCol.id]: newEndCol
+            } as PartCalc))
         }
 
-        // Make a new end list array
-        const newEndList = Object.assign([], end.list);
 
-        // Insert the item into the end list
-        newEndList.splice(destination.index, 0, start.list[source.index])
-
-        //обеспечим появление дисплея строго в первой позиции
-        if (newEndList.some((s: CalcPartial) => (s.elementCalc == 'CalcDisplay'))) {
-            const displayIndex = newEndList.findIndex((f: CalcPartial) => f.elementCalc == 'CalcDisplay');
-            let temp = newEndList.splice(displayIndex, 1)
-            newEndList.splice(0, 0, temp[0]);
-        }
-
-        // Create a new end column
-        const newEndCol = {
-            id: end.id,
-            list: newEndList
-        }
-
-        // Update the state
-        dispatch(changePartials({
-            [newStartCol.id]: newStartCol,
-            [newEndCol.id]: newEndCol
-        } as PartCalc))
 
 
     }

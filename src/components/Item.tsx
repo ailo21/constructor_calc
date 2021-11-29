@@ -2,7 +2,13 @@ import React, {FC} from 'react';
 import {Draggable} from "react-beautiful-dnd";
 import {CalcPartial, CalcPartialEnum} from "../features/calculator/model/CalcPartial";
 import {useAppDispatch, useAppSelector} from "../app/hooks";
-import {changePartials, PartCalc, selectPartials} from "../features/calculator/calculatorSlice";
+import {
+    changePartials,
+    deleteFromCalculator,
+    PartCalc,
+    selectEditMode,
+    selectPartials
+} from "../features/calculator/calculatorSlice";
 import CalcNumbersList from "./calculator/CalcNumbersList";
 import CalcEqual from "./calculator/CalcEqual";
 import CalcDisplay from "./calculator/CalcDisplay";
@@ -17,23 +23,14 @@ interface ItemProps {
 const Item: FC<ItemProps> = ({text, index, partial}) => {
     const dispatch = useAppDispatch();
     const columns = useAppSelector(selectPartials);
+    const isPromMode = useAppSelector(selectEditMode);
 
     const removeElement = (part: CalcPartial) => {
-        // if (columns.constructor.list.some(s => s.elementCalc == part.elementCalc)) return null;
-        //
-        // //убираем элемент из калькулятора
-        // let listCalc = columns.calculator.list.filter(f => f.elementCalc !== part.elementCalc);
-        // let listConst = [...columns.constructor.list, part];
-        // dispatch(changePartials({
-        //     constructor: {
-        //         id: "constructor",
-        //         list: listConst
-        //     },
-        //     calculator: {
-        //         id: "calculator",
-        //         list: listCalc
-        //     }
-        // } as PartCalc))
+        if (!isPromMode) return null;
+        //убедимся что двойной клик проищошел по элементу в правой колоне (в калькуляторе)
+        if (!columns.calculator.list.some(s => s.elementCalc == part.elementCalc)) return null
+
+        dispatch(deleteFromCalculator(part));
     }
     return (
         <Draggable draggableId={text} index={index}>

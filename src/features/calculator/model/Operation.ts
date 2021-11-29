@@ -3,5 +3,4 @@ export enum operationEnum {
     subtract = "-",
     multiply = "x",
     division = "/",
-    clear = "c",
 }

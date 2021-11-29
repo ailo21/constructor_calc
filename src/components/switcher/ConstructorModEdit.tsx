@@ -7,10 +7,10 @@ import '../switcher/switcher.css'
 
 const ConstructorModEdit = () => {
     const dispatch = useAppDispatch();
-    const isEditMode = useAppSelector(selectEditMode);
+    const isPromMode = useAppSelector(selectEditMode);
     let runtimeClass=['mode','mode_runtime'];
     let constructorClass=['mode','mode_constructor'];
-    if(isEditMode){
+    if(isPromMode){
         runtimeClass.push('active')
     }
     else{
@@ -32,7 +32,7 @@ const ConstructorModEdit = () => {
                     <span>Constructor</span>
                 </button>
 
-                <div className={'switcher_border '+(isEditMode?'switcher_border_edit':'switcher_border_calc')}></div>
+                <div className={'switcher_border '+(isPromMode?'switcher_border_edit':'switcher_border_calc')}></div>
             </div>
         </div>
     );

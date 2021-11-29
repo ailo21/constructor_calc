@@ -39,9 +39,11 @@
     margin: 0 4px;
     height: 48px;
     border-radius: 6px;
+
 }
 
 .num:hover,.operation_item:hover {
-    border: 2px solid #5D5FEF;
+    border: 1px solid #5D5FEF;
+    outline: 1px solid #5D5FEF;
     cursor: pointer;
 }

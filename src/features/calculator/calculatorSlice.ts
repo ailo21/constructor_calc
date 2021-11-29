@@ -12,7 +12,9 @@ export interface CalcState {
 type displayProp = {
     operand1: number | undefined,
     operand2: number | undefined,
-    operation: operationEnum | undefined
+    operation: operationEnum | undefined,
+    compute: number | undefined,
+    isComputedResult: boolean
 }
 
 export interface PartCalc {
@@ -44,8 +46,11 @@ export interface PartCalc {
 const initialState: CalcState = {
     isEditMode: true,
     displayProp: <displayProp>{
-        operand1: 0,
-        operation: undefined
+        operand1: undefined,
+        operand2: undefined,
+        operation: undefined,
+        compute: undefined,
+        isComputedResult: false
     },
 
 
@@ -82,7 +87,30 @@ export const calculatorSlice = createSlice({
         toggleEditMode: (state) => {
             state.isEditMode = !state.isEditMode
         },
+        deleteFromCalculator: (state, action: PayloadAction<CalcPartial>) => {
+
+            switch (action.payload.elementCalc) {
+                case CalcPartialEnum.CalcDisplay:
+                    state.structure.arialDisplay.list.push(action.payload)
+                    break;
+                case CalcPartialEnum.CalcEqual:
+                    state.structure.ariaEqual.list.push(action.payload)
+                    break;
+                case CalcPartialEnum.CalcNumbers:
+                    state.structure.arialNumbers.list.push(action.payload)
+                    break;
+                case CalcPartialEnum.CalcOperationList:
+                    state.structure.ariaOperation.list.push(action.payload)
+                    break;
+                default:
+                    break;
+            }
+            const displayIndex = state.structure.calculator.list.findIndex((f: CalcPartial) => f.elementCalc == action.payload.elementCalc);
+            state.structure.calculator.list.splice(displayIndex, 1);
+
+        },
         changePartials: (state, action: PayloadAction<PartCalc>) => {
+
             if (action.payload['arialDisplay'] != undefined) {
                 state.structure.arialDisplay = action.payload['arialDisplay'];
             }
@@ -100,26 +128,56 @@ export const calculatorSlice = createSlice({
             }
         },
         addOperand1: (state, action: PayloadAction<number>) => {
-            if (state.displayProp.operand1 != undefined)
-                state.displayProp.operand1 = Number(state.displayProp.operand1 + '' + action.payload);
+            state.displayProp.operand1 =
+                (state.displayProp.operand1 != undefined) ?
+                    Number(state.displayProp.operand1 + '' + action.payload)
+                    : action.payload;
         },
         addOperation: (state, action: PayloadAction<operationEnum>) => {
             state.displayProp.operation = action.payload;
+        },
+        displayClear: (state) => {
+            state.displayProp = initialState.displayProp;
         },
         addOperand2: (state, action: PayloadAction<number>) => {
             state.displayProp.operand2 = (state.displayProp.operand2 != undefined) ?
                 Number(state.displayProp.operand2 + '' + action.payload)
                 : action.payload
+        },
+        computedResult: (state) => {
+            let result: number = 0;
+            const operand1 = state.displayProp.operand1!;
+            const operand2 = state.displayProp.operand2!;
+            switch (state.displayProp.operation) {
+                case  operationEnum.fold:
+                    result = operand1 + operand2;
+                    break;
+                case operationEnum.subtract:
+                    result = operand1 - operand2;
+                    break;
+                case operationEnum.multiply:
+                    result = operand1 * operand2;
+                    break;
+                case operationEnum.division:
+                    result = operand1 / operand2;
+                    break;
+            }
+            state.displayProp.compute = result;
+            state.displayProp.isComputedResult = true
         }
+
 
     }
 })
 export const {
     toggleEditMode,
+    deleteFromCalculator,
     changePartials,
     addOperand1,
     addOperand2,
-    addOperation
+    addOperation,
+    displayClear,
+    computedResult
 } = calculatorSlice.actions;
 
 export const selectEditMode = (state: RootState) => state.calculator.isEditMode;
@@ -129,14 +187,17 @@ export const selectPartials = (state: RootState) => state.calculator.structure;
 export const selectDisplayOperand1 = (state: RootState) => state.calculator.displayProp.operand1;
 export const selectDisplayOperand2 = (state: RootState) => state.calculator.displayProp.operand2;
 export const selectDisplayOperation = (state: RootState) => state.calculator.displayProp.operation;
+export const selectIsComputedResult = (state: RootState) => state.calculator.displayProp.isComputedResult;
 
 export const selectDisplay = (state: RootState) => {
     let value = '';
-    value = String(state.calculator.displayProp.operand1 ?? '');
-    value += String(state.calculator.displayProp.operation ?? '');
-    value += String(state.calculator.displayProp.operand2 ?? '');
-
-
+    if (state.calculator.displayProp.compute === undefined) {
+        value = String(state.calculator.displayProp.operand1 ?? '');
+        value += String(state.calculator.displayProp.operation ?? '');
+        value += String(state.calculator.displayProp.operand2 ?? '');
+    } else {
+        value = state.calculator.displayProp.compute.toString();
+    }
     return value;
 };
 
