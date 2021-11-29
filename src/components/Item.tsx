@@ -6,6 +6,7 @@ import {changePartials, PartCalc, selectPartials} from "../features/calculator/c
 import CalcNumbersList from "./calculator/CalcNumbersList";
 import CalcEqual from "./calculator/CalcEqual";
 import CalcDisplay from "./calculator/CalcDisplay";
+import CalcOperationList from "./calculator/CalcOperationList";
 
 interface ItemProps {
     text: string,
@@ -53,6 +54,9 @@ const Item: FC<ItemProps> = ({text, index, partial}) => {
                     }
                     {
                         partial.elementCalc === CalcPartialEnum.CalcEqual && <CalcEqual/>
+                    }
+                    {
+                        partial.elementCalc === CalcPartialEnum.CalcOperationList && <CalcOperationList/>
                     }
                 </div>
             )}

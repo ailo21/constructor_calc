@@ -7,6 +7,11 @@
     border-radius: 6px;
     border-width: 0;
     width: 100%;
+    text-align: right;
+    color: #111827;
+    font-weight: 800;
+    font-size: 36px;
+    padding: 4px 8px;
 }
 
 .operation {
@@ -20,19 +25,23 @@
 .row {
     display: flex;
     justify-content: space-between;
+    margin-left: -5px;
+    margin-right: -5px;
 }
-
-.num {
+.row+.row{
+    margin-top: 8px;
+}
+.num,.operation_item {
     background: #FFFFFF;
     border: 1px solid #E2E3E5;
     font-size: 14px;
     width: 100%;
-    margin: 5px;
+    margin: 0 5px;
     height: 48px;
     border-radius: 6px;
 }
 
-.num:hover {
+.num:hover,.operation_item:hover {
     border: 2px solid #5D5FEF;
     cursor: pointer;
 }
