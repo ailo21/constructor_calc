@@ -19,10 +19,10 @@ const CalcOperationList: FC = () => {
     ];
 
     return (
-        <div className={""}>
+        <div className={"calc_partial"}>
             <div className={s.row}>
                 {
-                    operationList.map(o => <CalcOperation operation={o} onClick={() => clickHandlerOperation(o)}/>)
+                    operationList.map((o,index) => <CalcOperation key={index} operation={o} onClick={() => clickHandlerOperation(o)}/>)
                 }
             </div>
         </div>

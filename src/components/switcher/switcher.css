@@ -14,7 +14,7 @@
   background-color: #fff;
   border: 1px solid #E2E3E5;
   border-radius: 6px;
-  width: 131px;
+  width: 118px;
   height: 36px;
   position: absolute;
   top: 1px;
@@ -28,7 +28,7 @@
   left: 1px;
 }
 .switcher_border.switcher_border_edit {
-  left: 134px;
+  left: 123px;
 }
 button.mode {
   background-color: transparent;
@@ -37,7 +37,7 @@ button.mode {
   border-radius: 6px;
   display: flex;
   justify-content: center;
-  width: 133px;
+  width: 121px;
   z-index: 2;
 }
 button.mode:hover {

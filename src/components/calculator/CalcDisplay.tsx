@@ -9,7 +9,7 @@ const CalcDisplay = () => {
     const displayValue = useAppSelector(selectDisplay);
 
     return (
-        <div className={s.display_wrap}>
+        <div className={"calc_partial calc_partial_display"}>
             <input readOnly={true} value={displayValue} className={s.display} type={"text"}/>
         </div>
     );

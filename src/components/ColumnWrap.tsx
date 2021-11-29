@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import Column from "./Column";
 import {DragDropContext, DropResult} from 'react-beautiful-dnd';
-import {CalcPartial} from "../features/calculator/model/CalcPartial";
 import {useAppDispatch, useAppSelector} from "../app/hooks";
 import {changePartials, PartCalc, selectEditMode, selectPartials} from "../features/calculator/calculatorSlice";
 import ConstructorModEdit from "./switcher/ConstructorModEdit";
+import OpacityPlaceholder from "./calculator/OpacityPlaceholder";
+import {CalcPartial} from "../features/calculator/model/CalcPartial";
 
 const ColumnWrap = () => {
     const dispatch = useAppDispatch();
@@ -27,7 +28,7 @@ const ColumnWrap = () => {
         }
         const start = columns[source.droppableId]
         const end = Object.assign([], columns[destination.droppableId]);
-        if(end.id!='calculator')return  null;
+        if (end.id != 'calculator') return null;
 
 
         const newStartList = start.list.filter(
@@ -41,12 +42,17 @@ const ColumnWrap = () => {
         }
 
         // Make a new end list array
-        const newEndList =Object.assign([], end.list);
-
-
+        const newEndList = Object.assign([], end.list);
 
         // Insert the item into the end list
         newEndList.splice(destination.index, 0, start.list[source.index])
+
+        //обеспечим появление дисплея строго в первой позиции
+        if (newEndList.some((s: CalcPartial) => (s.elementCalc == 'CalcDisplay'))) {
+            const displayIndex = newEndList.findIndex((f: CalcPartial) => f.elementCalc == 'CalcDisplay');
+            let temp = newEndList.splice(displayIndex, 1)
+            newEndList.splice(0, 0, temp[0]);
+        }
 
         // Create a new end column
         const newEndCol = {
@@ -54,7 +60,6 @@ const ColumnWrap = () => {
             list: newEndList
         }
 
-         // debugger;
         // Update the state
         dispatch(changePartials({
             [newStartCol.id]: newStartCol,
@@ -69,15 +74,15 @@ const ColumnWrap = () => {
             <ConstructorModEdit/>
             <DragDropContext onDragEnd={onDragEnd}>
                 <div
-                    style={{
-                        display: 'grid',
-                        gridTemplateColumns: '1fr 1fr',
-                        margin: '24px auto',
-                        gap: '15px'
-                    }}
+                    className={'drag_columns'}
                 >
-                    <div>
-                        <Column col={columns["constructor"]} key={columns["constructor"].id}/>
+                    <div className={'constructor_area'}>
+                        <OpacityPlaceholder/>
+
+                        <Column col={columns["arialDisplay"]} key={columns["arialDisplay"].id}/>
+                        <Column col={columns["ariaOperation"]} key={columns["ariaOperation"].id}/>
+                        <Column col={columns["arialNumbers"]} key={columns["arialNumbers"].id}/>
+                        <Column col={columns["ariaEqual"]} key={columns["ariaEqual"].id}/>
                     </div>
                     <div>
                         <Column col={columns["calculator"]} key={columns["calculator"].id}/>

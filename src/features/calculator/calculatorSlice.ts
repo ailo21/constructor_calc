@@ -18,10 +18,23 @@ type displayProp = {
 export interface PartCalc {
     [index: string]: any,
 
-    constructor: {
-        id: 'constructor',
+    arialDisplay: {
+        id: 'arialDisplay',
         list: CalcPartial[]
     },
+    ariaOperation: {
+        id: 'ariaOperation',
+        list: CalcPartial[]
+    },
+    arialNumbers: {
+        id: 'arialNumbers',
+        list: CalcPartial[]
+    },
+    ariaEqual: {
+        id: 'ariaEqual',
+        list: CalcPartial[]
+    },
+
     calculator: {
         id: 'calculator',
         list: CalcPartial[]
@@ -34,15 +47,25 @@ const initialState: CalcState = {
         operand1: 0,
         operation: undefined
     },
+
+
     structure: {
-        constructor: {
-            id: 'constructor',
-            list: [
-                {sort: 1, elementCalc: CalcPartialEnum.CalcDisplay},
-                {sort: 2, elementCalc: CalcPartialEnum.CalcNumbers},
-                {sort: 3, elementCalc: CalcPartialEnum.CalcEqual},
-                {sort: 4, elementCalc: CalcPartialEnum.CalcOperationList},
-            ]
+
+        arialDisplay: {
+            id: 'arialDisplay',
+            list: [{sort: 1, elementCalc: CalcPartialEnum.CalcDisplay},]
+        },
+        ariaOperation: {
+            id: 'ariaOperation',
+            list: [{sort: 2, elementCalc: CalcPartialEnum.CalcOperationList},]
+        },
+        arialNumbers: {
+            id: 'arialNumbers',
+            list: [{sort: 3, elementCalc: CalcPartialEnum.CalcNumbers}]
+        },
+        ariaEqual: {
+            id: 'ariaEqual',
+            list: [{sort: 4, elementCalc: CalcPartialEnum.CalcEqual}]
         },
         calculator: {
             id: 'calculator',
@@ -60,7 +83,21 @@ export const calculatorSlice = createSlice({
             state.isEditMode = !state.isEditMode
         },
         changePartials: (state, action: PayloadAction<PartCalc>) => {
-            state.structure = action.payload;
+            if (action.payload['arialDisplay'] != undefined) {
+                state.structure.arialDisplay = action.payload['arialDisplay'];
+            }
+            if (action.payload['arialNumbers'] != undefined) {
+                state.structure.arialNumbers = action.payload['arialNumbers'];
+            }
+            if (action.payload['ariaEqual'] != undefined) {
+                state.structure.ariaEqual = action.payload['ariaEqual'];
+            }
+            if (action.payload['ariaOperation'] != undefined) {
+                state.structure.ariaOperation = action.payload['ariaOperation'];
+            }
+            if (action.payload['calculator'] != undefined) {
+                state.structure.calculator = action.payload['calculator'];
+            }
         },
         addOperand1: (state, action: PayloadAction<number>) => {
             if (state.displayProp.operand1 != undefined)

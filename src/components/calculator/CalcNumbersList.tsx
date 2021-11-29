@@ -25,7 +25,7 @@ const CalcNumbersList = () => {
     }
 
     return (
-        <div className={""}>
+        <div  className={"calc_partial"}>
             <div className={s.row}>
                 <CalcNumber num={7} onClick={() => clickHandlerNum(7)}/>
                 <CalcNumber num={8} onClick={() => clickHandlerNum(8)}/>

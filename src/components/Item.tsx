@@ -39,7 +39,7 @@ const Item: FC<ItemProps> = ({text, index, partial}) => {
         <Draggable draggableId={text} index={index}>
             {provided => (
                 <div
-                    className={"calc_partial"}
+
                     onDoubleClick={() => removeElement(partial)}
                     ref={provided.innerRef}
                     {...provided.draggableProps}
