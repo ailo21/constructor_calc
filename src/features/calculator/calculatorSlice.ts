@@ -138,7 +138,6 @@ export const calculatorSlice = createSlice({
                         ? action.payload
                         : state.displayProp.operand1 + '' + action.payload;
             }
-
         },
         addOperation: (state, action: PayloadAction<operationEnum>) => {
             state.displayProp.operation = action.payload;
@@ -154,7 +153,6 @@ export const calculatorSlice = createSlice({
             } else if (action.payload == '0' && state.displayProp.operand2 == '0') {
 
             } else {
-
                 state.displayProp.operand2 = (state.displayProp.operand2 == undefined || state.displayProp.operand2 == '0')
                     ? action.payload
                     : state.displayProp.operand2 + '' + action.payload
