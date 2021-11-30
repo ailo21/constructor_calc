@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/constructor_calc/static/css/main.4d29f822.chunk.css",
-    "main.js": "/constructor_calc/static/js/main.4f4fe95f.chunk.js",
-    "main.js.map": "/constructor_calc/static/js/main.4f4fe95f.chunk.js.map",
+    "main.css": "/constructor_calc/static/css/main.6b1d5fa0.chunk.css",
+    "main.js": "/constructor_calc/static/js/main.a384f45a.chunk.js",
+    "main.js.map": "/constructor_calc/static/js/main.a384f45a.chunk.js.map",
     "runtime-main.js": "/constructor_calc/static/js/runtime-main.d81fbdad.js",
     "runtime-main.js.map": "/constructor_calc/static/js/runtime-main.d81fbdad.js.map",
     "static/js/2.9c685ceb.chunk.js": "/constructor_calc/static/js/2.9c685ceb.chunk.js",
     "static/js/2.9c685ceb.chunk.js.map": "/constructor_calc/static/js/2.9c685ceb.chunk.js.map",
     "index.html": "/constructor_calc/index.html",
-    "static/css/main.4d29f822.chunk.css.map": "/constructor_calc/static/css/main.4d29f822.chunk.css.map",
+    "static/css/main.6b1d5fa0.chunk.css.map": "/constructor_calc/static/css/main.6b1d5fa0.chunk.css.map",
     "static/js/2.9c685ceb.chunk.js.LICENSE.txt": "/constructor_calc/static/js/2.9c685ceb.chunk.js.LICENSE.txt",
     "static/media/switcher.css": "/constructor_calc/static/media/icon_see.463f70d0.svg",
     "static/media/icon_image.d0b22c56.svg": "/constructor_calc/static/media/icon_image.d0b22c56.svg"
@@ -16,7 +16,7 @@
   "entrypoints": [
     "static/js/runtime-main.d81fbdad.js",
     "static/js/2.9c685ceb.chunk.js",
-    "static/css/main.4d29f822.chunk.css",
-    "static/js/main.4f4fe95f.chunk.js"
+    "static/css/main.6b1d5fa0.chunk.css",
+    "static/js/main.a384f45a.chunk.js"
   ]
 }
