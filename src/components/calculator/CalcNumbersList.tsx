@@ -5,23 +5,39 @@ import {
     addOperand1, addOperand2, displayClear,
     selectDisplayOperation, selectIsComputedResult
 } from "../../features/calculator/calculatorSlice";
+import CalcPoint from "./CalcPoint";
 
 const CalcNumbersList = () => {
     const dispatch = useAppDispatch();
     const operation = useAppSelector(selectDisplayOperation);
     const computedResult = useAppSelector(selectIsComputedResult);
 
-    const clickHandlerNum = (num: number) => {
+    const clickHandlerPoint=()=>{
         if(computedResult){
             dispatch(displayClear())
-            dispatch(addOperand1(num))
+            dispatch(addOperand1('.'))
         }
         else{
             if(operation===undefined){
-                dispatch(addOperand1(num))
+                dispatch(addOperand1('.'))
             }
             else{
-                dispatch(addOperand2(num))
+                dispatch(addOperand2('.'))
+            }
+        }
+    }
+    const clickHandlerNum = (num: number) => {
+        let stringNum=String(num);
+        if(computedResult){
+            dispatch(displayClear())
+            dispatch(addOperand1(stringNum))
+        }
+        else{
+            if(operation===undefined){
+                dispatch(addOperand1(stringNum))
+            }
+            else{
+                dispatch(addOperand2(stringNum))
             }
         }
 
@@ -45,8 +61,9 @@ const CalcNumbersList = () => {
                 <CalcNumber num={2} onClick={() => clickHandlerNum(2)}/>
                 <CalcNumber num={3} onClick={() => clickHandlerNum(3)}/>
             </div>
-            <div className={'row'}>
+            <div className={'row row_with_point'}>
                 <CalcNumber num={0} onClick={() => clickHandlerNum(0)}/>
+                <CalcPoint  onClick={() => clickHandlerPoint()}/>
             </div>
 
 

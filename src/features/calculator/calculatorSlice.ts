@@ -10,8 +10,8 @@ export interface CalcState {
 }
 
 type displayProp = {
-    operand1: number | undefined,
-    operand2: number | undefined,
+    operand1: string | undefined,
+    operand2: string | undefined,
     operation: operationEnum | undefined,
     compute: number | undefined,
     isComputedResult: boolean
@@ -124,11 +124,21 @@ export const calculatorSlice = createSlice({
                 state.structure.calculator = action.payload['calculator'];
             }
         },
-        addOperand1: (state, action: PayloadAction<number>) => {
-            state.displayProp.operand1 =
-                (state.displayProp.operand1 != undefined) ?
-                    Number(state.displayProp.operand1 + '' + action.payload)
-                    : action.payload;
+        addOperand1: (state, action: PayloadAction<string>) => {
+
+            if (action.payload == '.' && state.displayProp.operand1 == undefined) {
+                state.displayProp.operand1 = '0.';
+            } else if (action.payload == '.' && state.displayProp.operand1?.includes('.')) {
+
+            } else if (action.payload == '0' && state.displayProp.operand1 == '0') {
+
+            } else {
+                state.displayProp.operand1 =
+                    (state.displayProp.operand1 == undefined || state.displayProp.operand1 == '0')
+                        ? action.payload
+                        : state.displayProp.operand1 + '' + action.payload;
+            }
+
         },
         addOperation: (state, action: PayloadAction<operationEnum>) => {
             state.displayProp.operation = action.payload;
@@ -136,10 +146,20 @@ export const calculatorSlice = createSlice({
         displayClear: (state) => {
             state.displayProp = initialState.displayProp;
         },
-        addOperand2: (state, action: PayloadAction<number>) => {
-            state.displayProp.operand2 = (state.displayProp.operand2 != undefined) ?
-                Number(state.displayProp.operand2 + '' + action.payload)
-                : action.payload
+        addOperand2: (state, action: PayloadAction<string>) => {
+            if (action.payload == '.' && state.displayProp.operand2 == undefined) {
+                state.displayProp.operand2 = '0.';
+            } else if (action.payload == '.' && state.displayProp.operand2?.includes('.')) {
+
+            } else if (action.payload == '0' && state.displayProp.operand2 == '0') {
+
+            } else {
+
+                state.displayProp.operand2 = (state.displayProp.operand2 == undefined || state.displayProp.operand2 == '0')
+                    ? action.payload
+                    : state.displayProp.operand2 + '' + action.payload
+            }
+
         },
         computedResult: (state) => {
             let result: number = 0;
@@ -147,16 +167,16 @@ export const calculatorSlice = createSlice({
             const operand2 = state.displayProp.operand2!;
             switch (state.displayProp.operation) {
                 case  operationEnum.fold:
-                    result = operand1 + operand2;
+                    result = Number(operand1) + Number(operand2);
                     break;
                 case operationEnum.subtract:
-                    result = operand1 - operand2;
+                    result = Number(operand1) - Number(operand2);
                     break;
                 case operationEnum.multiply:
-                    result = operand1 * operand2;
+                    result = Number(operand1) * Number(operand2);
                     break;
                 case operationEnum.division:
-                    result = operand1 / operand2;
+                    result = Number(operand1) / Number(operand2);
                     break;
             }
             state.displayProp.compute = result;
