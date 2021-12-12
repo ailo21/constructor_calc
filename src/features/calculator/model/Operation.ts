@@ -1,6 +1,6 @@
-export enum operationEnum {
-    fold = "+",
-    subtract = "-",
-    multiply = "x",
-    division = "/",
+export enum OperationEnum {
+  fold = '+',
+  subtract = '-',
+  multiply = 'x',
+  division = '/',
 }
